@@ -1,66 +1,46 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
 
-export default function Home() {
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+
+export default function AuthenticationPage() {
+  const router = useRouter();
+
+  const handleConnectWithGoogle = () => {
+    router.push("/gender");
+  };
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
+    <div
+      className="flex flex-col w-full h-screen overflow-hidden"
+      style={{ backgroundColor: "var(--primary-purple)" }}
+    >
+      <div className="flex flex-1 items-center justify-center">
         <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
+          src="/logoWingMann.png"
+          alt="WingMann Logo"
+          width={200}
+          height={200}
           priority
         />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
+      </div>
+
+      <div className="pb-16">
+        <div className="flex flex-col items-center gap-6 px-5">
+          <button
+            onClick={handleConnectWithGoogle}
+            className="flex items-center justify-center w-full max-w-[300px] h-12 bg-white border-none rounded cursor-pointer transition-opacity hover:opacity-90 active:opacity-80"
+          >
+            <span className="text-[#3c4043] text-base font-medium">
+              Connect with Google
+            </span>
+          </button>
+
+          <p className="text-white text-sm text-center whitespace-nowrap">
+            By continuing, I agree to all the terms and conditions.
           </p>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </div>
     </div>
   );
 }
