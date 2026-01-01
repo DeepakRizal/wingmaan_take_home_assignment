@@ -26,7 +26,6 @@ export default function HeightPage() {
     setGender(storedGender);
   }, [router]);
 
-  // ✅ FIXED: accept newHeight
   const handleHeightChange = (newHeight) => {
     if (newHeight < MIN_HEIGHT || newHeight > MAX_HEIGHT) return;
     setHeight(newHeight);
@@ -40,7 +39,7 @@ export default function HeightPage() {
   if (!gender) return null;
 
   return (
-    <div className="h-screen bg-[var(--bg-light-purple)] flex flex-col overflow-hidden">
+    <div className="min-h-[100svh] bg-[var(--bg-light-purple)] flex flex-col overflow-hidden">
       {/* Header */}
       <div className="pt-3 pl-4 sm:pt-4 md:pt-6 md:pl-6 shrink-0">
         <BackButton onClick={() => router.back()} />
@@ -77,7 +76,15 @@ export default function HeightPage() {
       </div>
 
       {/* Footer */}
-      <div className="pb-6 flex justify-center">
+      <div
+        className="
+          mt-auto
+          pb-[calc(env(safe-area-inset-bottom)+1.5rem)]
+          pt-2
+          flex
+          justify-center
+        "
+      >
         <button onClick={handleNext}>
           <Image
             src="/icons/buttons/heightPageNext.svg"
