@@ -26,6 +26,7 @@ export default function HeightPage() {
   }, [router]);
 
   const handleHeightChange = (newHeight) => {
+    if (newHeight < MIN_HEIGHT || newHeight > MAX_HEIGHT) return;
     setHeight(newHeight);
   };
 
@@ -37,13 +38,13 @@ export default function HeightPage() {
   if (!gender) return null;
 
   return (
-    <div className="h-screen bg-[var(--bg-light-purple)] flex flex-col overflow-hidden">
+    <div className="h-screen bg-[var(--bg-light-purple)] flex flex-col overflow-hidden touch-none">
       {/* Header */}
-      <div className="back-button-container pt-3 pl-4 sm:pt-4 md:pt-6 md:pl-6 shrink-0">
+      <div className="pt-3 pl-4 sm:pt-4 md:pt-6 md:pl-6 shrink-0">
         <BackButton onClick={() => router.back()} />
       </div>
 
-      {/* Body - Content with proper spacing */}
+      {/* Body */}
       <div className="flex-1 flex flex-col items-center justify-center px-4 sm:px-6 min-h-0">
         {/* Heading */}
         <div className="mb-3 sm:mb-4 md:mb-6 text-center shrink-0">
@@ -55,15 +56,17 @@ export default function HeightPage() {
           </p>
         </div>
 
-        {/* Scale and character - centered, responsive sizing */}
+        {/* Character + Scale */}
         <div className="flex-1 flex items-center justify-center min-h-0 w-full max-w-4xl">
           <div className="flex items-center gap-4 sm:gap-6 md:gap-8">
-            <div className="hidden sm:block">
+            {/* CHARACTER — visible on mobile now */}
+            <div className="block">
               <HeightCharacter gender={gender} height={height} />
             </div>
 
+            {/* SCALE */}
             <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
-              <div className="relative h-[280px] sm:h-[320px] md:h-[360px] lg:h-[400px]">
+              <div className="relative h-[280px] sm:h-[320px] md:h-[360px] lg:h-[400px] touch-auto">
                 <HeightScale
                   onHeightChange={handleHeightChange}
                   initialHeight={height}
@@ -77,7 +80,7 @@ export default function HeightPage() {
         </div>
       </div>
 
-      {/* Footer - Button at bottom with proper spacing */}
+      {/* Footer */}
       <div className="pb-4 sm:pb-6 md:pb-8 pt-2 sm:pt-3 md:pt-4 flex items-center justify-center shrink-0">
         <button
           onClick={handleNext}
