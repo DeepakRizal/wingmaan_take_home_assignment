@@ -30,17 +30,22 @@ export default function HeightScale({ selectedHeight, onHeightChange }) {
         className="
           relative h-full flex flex-col justify-between
           py-2 sm:py-3 md:py-4
-          touch-pan-y select-none
+          touch-none select-none
           cursor-pointer
         "
         onPointerDown={(e) => {
+          e.preventDefault();
           e.currentTarget.setPointerCapture(e.pointerId);
           updateHeightFromPointer(e.clientY);
         }}
         onPointerMove={(e) => {
-          if (e.buttons === 1) {
-            updateHeightFromPointer(e.clientY);
-          }
+          updateHeightFromPointer(e.clientY);
+        }}
+        onPointerUp={(e) => {
+          e.currentTarget.releasePointerCapture(e.pointerId);
+        }}
+        onPointerCancel={(e) => {
+          e.currentTarget.releasePointerCapture(e.pointerId);
         }}
       >
         {heights.map((height) => {

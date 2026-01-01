@@ -49,9 +49,10 @@ export default function HeightPage() {
       {/* Body */}
       <div className="flex-1 flex flex-col items-center justify-center px-4 sm:px-6 min-h-0">
         <div className="mb-4 text-center">
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-purple">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-black mb-1 sm:mb-2">
             Now tell me, how tall are you?
           </h1>
+
           <p className="text-sm sm:text-base text-purple opacity-70">
             Just getting the full picture of you.
           </p>
