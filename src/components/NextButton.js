@@ -42,7 +42,7 @@ export default function NextButton({ onClick, disabled }) {
           />
           <path
             d="M40.0001 2C46.7377 2 53.3661 3.70189 59.2703 6.94773L40.0001 42L40.0001 2Z"
-            style={{ stroke: 'var(--primary-purple)' }}
+            style={{ stroke: "var(--primary-purple)" }}
             strokeWidth="4"
             mask="url(#path-1-outside-1_2209_8059)"
           />
@@ -52,7 +52,7 @@ export default function NextButton({ onClick, disabled }) {
             width="69.4546"
             height="69.4546"
             rx="34.7273"
-            style={{ fill: 'var(--primary-purple)' }}
+            style={{ fill: "var(--primary-purple)" }}
             stroke="#FFEDF5"
             strokeWidth="4"
           />
@@ -65,4 +65,3 @@ export default function NextButton({ onClick, disabled }) {
     </div>
   );
 }
-

@@ -2,11 +2,14 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import BackButton from "@/components/BackButton";
 import HeightCharacter from "@/components/HeightCharacter";
 import HeightScale from "@/components/HeightScale";
 import HeightDisplay from "@/components/HeightDisplay";
-import ActionButton from "@/components/ActionButton";
+
+const MIN_HEIGHT = 4.1;
+const MAX_HEIGHT = 5.8;
 
 export default function HeightPage() {
   const router = useRouter();
@@ -36,50 +39,59 @@ export default function HeightPage() {
   return (
     <div className="h-screen bg-[var(--bg-light-purple)] flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="back-button-container">
+      <div className="back-button-container pt-3 pl-4 sm:pt-4 md:pt-6 md:pl-6 shrink-0">
         <BackButton onClick={() => router.back()} />
       </div>
 
-      {/* Body - Centered content */}
-      <div className="flex-1 flex flex-col items-center justify-center px-6">
+      {/* Body - Content with proper spacing */}
+      <div className="flex-1 flex flex-col items-center justify-center px-4 sm:px-6 min-h-0">
         {/* Heading */}
-        <div className="mb-8 text-center">
-          <h1 className="text-2xl md:text-3xl font-bold text-purple mb-2">
+        <div className="mb-3 sm:mb-4 md:mb-6 text-center shrink-0">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-purple mb-1 sm:mb-2">
             Now tell me, how tall are you?
           </h1>
-          <p className="text-base text-purple opacity-70">
+          <p className="text-sm sm:text-base text-purple opacity-70">
             Just getting the full picture of you.
           </p>
         </div>
 
-        {/* Scale and character - centered */}
-        <div className="flex items-center gap-8">
-          <HeightCharacter gender={gender} height={height} />
-
-          <div className="flex items-center gap-6">
-            <div className="relative h-[400px]">
-              <HeightScale
-                onHeightChange={handleHeightChange}
-                initialHeight={height}
-              />
-
-              {/* Indicator line */}
-              <div
-                className="absolute right-0 w-16 h-0.5 bg-[var(--primary-purple)] -translate-x-4 -translate-y-1/2"
-                style={{
-                  top: `${((height - 4.1) / (5.8 - 4.1)) * 100}%`,
-                }}
-              />
+        {/* Scale and character - centered, responsive sizing */}
+        <div className="flex-1 flex items-center justify-center min-h-0 w-full max-w-4xl">
+          <div className="flex items-center gap-4 sm:gap-6 md:gap-8">
+            <div className="hidden sm:block">
+              <HeightCharacter gender={gender} height={height} />
             </div>
 
-            <HeightDisplay height={height} />
+            <div className="flex items-center gap-3 sm:gap-4 md:gap-6">
+              <div className="relative h-[280px] sm:h-[320px] md:h-[360px] lg:h-[400px]">
+                <HeightScale
+                  onHeightChange={handleHeightChange}
+                  initialHeight={height}
+                  selectedHeight={height}
+                />
+              </div>
+
+              <HeightDisplay height={height} />
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Footer - Button at bottom */}
-      <div className="pb-8 flex items-center justify-center">
-        <ActionButton onClick={handleNext} disabled={false} />
+      {/* Footer - Button at bottom with proper spacing */}
+      <div className="pb-4 sm:pb-6 md:pb-8 pt-2 sm:pt-3 md:pt-4 flex items-center justify-center shrink-0">
+        <button
+          onClick={handleNext}
+          className="transition-all hover:scale-105 active:scale-95 cursor-pointer"
+          aria-label="Next"
+        >
+          <Image
+            src="/icons/buttons/heightPageNext.svg"
+            alt="Next"
+            width={82}
+            height={84}
+            priority
+          />
+        </button>
       </div>
     </div>
   );

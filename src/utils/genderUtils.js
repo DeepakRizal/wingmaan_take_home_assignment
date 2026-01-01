@@ -1,11 +1,11 @@
 export const GENDER_IMAGES = {
   Man: {
-    welcome: "/guyCharacter (1).png",
-    height: "/peep-standing-15-guy.png",
+    welcome: "/images/characters/guyCharacter (1).png",
+    height: "/images/characters/peep-standing-15-guy.png",
   },
   Woman: {
-    welcome: "/girlCharacter.png",
-    height: "/peep-standing-15-girl.png",
+    welcome: "/images/characters/girlCharacter.png",
+    height: "/images/characters/peep-standing-15-girl.png",
   },
 };
 

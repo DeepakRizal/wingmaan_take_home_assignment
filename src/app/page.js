@@ -12,7 +12,7 @@ export default function AuthenticationPage() {
 
   return (
     <div
-      className="flex flex-col w-full h-screen overflow-hidden"
+      className="flex flex-col w-full h-screen overflow-hidden py-5"
       style={{ backgroundColor: "var(--primary-purple)" }}
     >
       <div className="flex flex-1 items-center justify-center">
@@ -26,7 +26,7 @@ export default function AuthenticationPage() {
       </div>
 
       <div className="pb-16">
-        <div className="flex flex-col items-center gap-6 px-5">
+        <div className="flex flex-col items-center gap-3 sm:gap-4 md:gap-3 px-5">
           <button
             onClick={handleConnectWithGoogle}
             className="flex items-center justify-center w-full max-w-[300px] h-12 bg-white border-none rounded cursor-pointer transition-opacity hover:opacity-90 active:opacity-80"

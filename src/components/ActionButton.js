@@ -1,6 +1,10 @@
-export default function ActionButton({ onClick, disabled }) {
+export default function ActionButton({ onClick, disabled, fixed = true }) {
+  const containerClass = fixed
+    ? "fixed bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center"
+    : "flex flex-col items-center";
+
   return (
-    <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center">
+    <div className={containerClass}>
       <button
         onClick={onClick}
         disabled={disabled}

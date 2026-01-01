@@ -2,12 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import BackButton from "@/components/BackButton";
 import PageHeading from "@/components/PageHeading";
 import DateInputField from "@/components/DateInputField";
 import DatePicker from "@/components/DatePicker";
 import AgeConfirmationModal from "@/components/AgeConfirmationModal";
-import ActionButton from "@/components/ActionButton";
 
 export default function BirthdayPage() {
   const router = useRouter();
@@ -149,7 +149,30 @@ export default function BirthdayPage() {
         )}
       </div>
 
-      <ActionButton onClick={handleNext} disabled={!isDateValid()} />
+      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center">
+        <button
+          onClick={handleNext}
+          disabled={!isDateValid()}
+          className={`transition-all ${
+            !isDateValid()
+              ? "opacity-50 cursor-not-allowed"
+              : "hover:scale-105 active:scale-95 cursor-pointer"
+          }`}
+          aria-label="Next"
+        >
+          <Image
+            src={
+              showDatePicker
+                ? "/icons/buttons/birthdayDatePickerOpenNext.svg"
+                : "/icons/buttons/birthdayPageNext.svg"
+            }
+            alt="Next"
+            width={82}
+            height={82}
+            priority
+          />
+        </button>
+      </div>
 
       {showAgeModal && calculatedAge && (
         <AgeConfirmationModal

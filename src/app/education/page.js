@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import BackButton from "@/components/BackButton";
 import PageHeading from "@/components/PageHeading";
-import ActionButton from "@/components/ActionButton";
 
 const EDUCATION_OPTIONS = [
   { id: "highschool", label: "High School" },
@@ -53,21 +53,21 @@ export default function EducationPage() {
   };
 
   return (
-    <div className="page-container flex flex-col min-h-screen">
+    <div className="page-container flex flex-col">
       {/* Back button */}
-      <div className="back-button-container">
+      <div className="back-button-container shrink-0">
         <BackButton onClick={() => router.back()} />
       </div>
 
       {/* Page content */}
-      <div className="page-content flex flex-col flex-1">
+      <div className="flex-1 flex flex-col px-6 pt-8 pb-4 max-w-md w-full mx-auto min-h-0">
         <PageHeading
           heading="And your education?"
           subtitle="what's the highest degree or field you studied in?"
         />
 
         {/* Centered grid */}
-        <div className="flex flex-1 items-center justify-center">
+        <div className="flex flex-1 items-center justify-center min-h-0">
           <div className="relative w-[260px] sm:w-[300px]">
             {/* Cards */}
             <div className="grid grid-cols-2 gap-6 relative z-10">
@@ -119,8 +119,36 @@ export default function EducationPage() {
       </div>
 
       {/* Next button pinned to bottom */}
-      <div className="pb-6 flex justify-center">
-        <ActionButton onClick={handleNext} disabled={!selectedEducation} />
+      <div className="pb-6 sm:pb-8 pt-4 flex justify-center shrink-0">
+        {selectedEducation ? (
+          <button
+            onClick={handleNext}
+            className="transition-all hover:scale-105 active:scale-95 cursor-pointer"
+            aria-label="Next"
+          >
+            <Image
+              src="/icons/buttons/selectYourEducationNext.svg"
+              alt="Next"
+              width={82}
+              height={84}
+              priority
+            />
+          </button>
+        ) : (
+          <button
+            disabled
+            className="opacity-50 cursor-not-allowed"
+            aria-label="Next"
+          >
+            <Image
+              src="/icons/buttons/selectYourEducationNext.svg"
+              alt="Next"
+              width={82}
+              height={84}
+              priority
+            />
+          </button>
+        )}
       </div>
     </div>
   );

@@ -14,16 +14,20 @@ export default function HeightCharacter({ gender, height }) {
   const characterHeight = BASE_CHARACTER_HEIGHT * scaleFactor;
 
   return (
-    <div className="relative flex items-end" style={{ height: "400px" }}>
-      <div className="absolute left-0 top-0 bottom-0 w-20 bg-[var(--primary-purple)] rounded-l-3xl"></div>
-      <div className="relative z-10 ml-12 flex items-end" style={{ height: "100%" }}>
+    <div className="relative flex items-end h-[280px] sm:h-[320px] md:h-[360px] lg:h-[400px]">
+      <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-16 md:w-20 bg-[var(--primary-purple)] rounded-l-2xl sm:rounded-l-3xl"></div>
+      <div className="relative z-10 ml-8 sm:ml-10 md:ml-12 flex items-end" style={{ height: "100%" }}>
         <Image
           src={getGenderImage(gender, "height")}
           alt={`${gender} character`}
           width={120}
           height={characterHeight}
-          className="object-contain"
-          style={{ height: `${characterHeight}px`, width: "auto" }}
+          className="object-contain w-auto max-h-full"
+          style={{ 
+            height: `${characterHeight}px`,
+            maxHeight: "100%",
+            width: "auto"
+          }}
         />
       </div>
     </div>

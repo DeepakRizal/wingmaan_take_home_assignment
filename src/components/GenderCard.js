@@ -16,7 +16,7 @@ export default function GenderCard({ gender, imageSrc, imageAlt, isSelected, onC
       {isSelected && (
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
           <Image
-            src="/select.svg"
+            src="/icons/genderSelectedIcon.svg"
             alt="Selected"
             width={42}
             height={40}

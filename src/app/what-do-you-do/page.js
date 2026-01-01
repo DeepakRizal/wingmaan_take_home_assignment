@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import BackButton from "@/components/BackButton";
 import PageHeading from "@/components/PageHeading";
-import ActionButton from "@/components/ActionButton";
 
 export default function WhatDoYouDoPage() {
   const router = useRouter();
@@ -52,7 +52,39 @@ export default function WhatDoYouDoPage() {
         </div>
       </div>
 
-      <ActionButton onClick={handleNext} disabled={!selectedOption} />
+      {selectedOption ? (
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center">
+          <button
+            onClick={handleNext}
+            className="transition-all hover:scale-105 active:scale-95 cursor-pointer"
+            aria-label="Next"
+          >
+            <Image
+              src="/icons/buttons/whatDoYouDoNext.svg"
+              alt="Next"
+              width={84}
+              height={84}
+              priority
+            />
+          </button>
+        </div>
+      ) : (
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center">
+          <button
+            disabled
+            className="opacity-50 cursor-not-allowed"
+            aria-label="Next"
+          >
+            <Image
+              src="/icons/buttons/whatDoYouDoNext.svg"
+              alt="Next"
+              width={84}
+              height={84}
+              priority
+            />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
