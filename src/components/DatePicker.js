@@ -3,9 +3,17 @@
 import { useState, useRef, useEffect } from "react";
 
 export default function DatePicker({ onDateSelect, initialDate }) {
-  const [selectedDay, setSelectedDay] = useState(initialDate?.day);
-  const [selectedMonth, setSelectedMonth] = useState(initialDate?.month);
-  const [selectedYear, setSelectedYear] = useState(initialDate?.year);
+  const today = new Date();
+
+  const [selectedDay, setSelectedDay] = useState(
+    initialDate?.day ?? today.getDate()
+  );
+  const [selectedMonth, setSelectedMonth] = useState(
+    initialDate?.month ?? today.getMonth() + 1
+  );
+  const [selectedYear, setSelectedYear] = useState(
+    initialDate?.year ?? today.getFullYear()
+  );
 
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
 
@@ -24,28 +32,28 @@ export default function DatePicker({ onDateSelect, initialDate }) {
     "December",
   ];
 
-  const currentYear = new Date().getFullYear();
-  const startYear = Math.max(initialDate?.year || currentYear, currentYear);
-  const years = Array.from({ length: 120 }, (_, i) => startYear - i);
+  const currentYear = today.getFullYear();
+  const years = Array.from({ length: 120 }, (_, i) => currentYear - i);
 
   const dayRef = useRef(null);
   const monthRef = useRef(null);
   const yearRef = useRef(null);
 
-  useEffect(() => {
-    if (initialDate) {
-      setSelectedDay(initialDate.day);
-      setSelectedMonth(initialDate.month);
-      setSelectedYear(initialDate.year);
-    }
-  }, [initialDate]);
+  const ITEM_HEIGHT = 48;
 
-  const scrollToCenter = (ref, index) => {
-    if (ref.current) {
-      const itemHeight = 48;
-      ref.current.scrollTop = index * itemHeight - itemHeight;
-    }
+  const scrollToIndex = (ref, index) => {
+    if (!ref.current) return;
+    ref.current.scrollTo({
+      top: index * ITEM_HEIGHT,
+      behavior: "smooth",
+    });
   };
+
+  useEffect(() => {
+    scrollToIndex(dayRef, selectedDay - 1);
+    scrollToIndex(monthRef, selectedMonth - 1);
+    scrollToIndex(yearRef, years.indexOf(selectedYear));
+  }, [selectedDay, selectedMonth, selectedYear]);
 
   const notifyDateChange = (day, month, year) => {
     onDateSelect?.({ day, month, year });
@@ -65,7 +73,6 @@ export default function DatePicker({ onDateSelect, initialDate }) {
               key={day}
               onClick={() => {
                 setSelectedDay(day);
-                scrollToCenter(dayRef, day - 1);
                 notifyDateChange(day, selectedMonth, selectedYear);
               }}
               className={`h-12 flex items-center justify-center cursor-pointer transition-all ${
@@ -81,24 +88,25 @@ export default function DatePicker({ onDateSelect, initialDate }) {
 
         {/* Month */}
         <div className="flex-1 overflow-y-auto scrollbar-hide" ref={monthRef}>
-          {months.map((month, index) => (
-            <div
-              key={month}
-              onClick={() => {
-                const newMonth = index + 1;
-                setSelectedMonth(newMonth);
-                scrollToCenter(monthRef, index);
-                notifyDateChange(selectedDay, newMonth, selectedYear);
-              }}
-              className={`h-12 flex items-center justify-center cursor-pointer transition-all ${
-                selectedMonth === index + 1
-                  ? "text-xl font-bold scale-110"
-                  : "opacity-50"
-              }`}
-            >
-              {month}
-            </div>
-          ))}
+          {months.map((month, index) => {
+            const monthValue = index + 1;
+            return (
+              <div
+                key={month}
+                onClick={() => {
+                  setSelectedMonth(monthValue);
+                  notifyDateChange(selectedDay, monthValue, selectedYear);
+                }}
+                className={`h-12 flex items-center justify-center cursor-pointer transition-all ${
+                  selectedMonth === monthValue
+                    ? "text-xl font-bold scale-110"
+                    : "opacity-50"
+                }`}
+              >
+                {month}
+              </div>
+            );
+          })}
         </div>
 
         {/* Year */}
@@ -108,7 +116,6 @@ export default function DatePicker({ onDateSelect, initialDate }) {
               key={year}
               onClick={() => {
                 setSelectedYear(year);
-                scrollToCenter(yearRef, years.indexOf(year));
                 notifyDateChange(selectedDay, selectedMonth, year);
               }}
               className={`h-12 flex items-center justify-center cursor-pointer transition-all ${

@@ -53,14 +53,14 @@ export default function EducationPage() {
   };
 
   return (
-    <div className="page-container flex flex-col">
+    <div className="min-h-[100svh] flex flex-col overflow-hidden">
       {/* Back button */}
-      <div className="back-button-container shrink-0">
+      <div className="shrink-0 pt-3 pl-4">
         <BackButton onClick={() => router.back()} />
       </div>
 
       {/* Page content */}
-      <div className="flex-1 flex flex-col px-6 pt-8 pb-4 max-w-md w-full mx-auto min-h-0">
+      <div className="flex-1 flex flex-col px-6 pt-6 pb-2 max-w-md w-full mx-auto min-h-0">
         <PageHeading
           heading="And your education?"
           subtitle="what's the highest degree or field you studied in?"
@@ -81,8 +81,7 @@ export default function EducationPage() {
               ))}
             </div>
 
-            {/* Connector pipes (touching cards exactly as requested) */}
-            {/* Top horizontal */}
+            {/* Connector pipes */}
             <div
               className="absolute bg-[var(--primary-purple)] z-0"
               style={{
@@ -93,7 +92,6 @@ export default function EducationPage() {
               }}
             />
 
-            {/* Bottom horizontal */}
             <div
               className="absolute bg-[var(--primary-purple)] z-0"
               style={{
@@ -104,7 +102,6 @@ export default function EducationPage() {
               }}
             />
 
-            {/* Right vertical */}
             <div
               className="absolute bg-[var(--primary-purple)] z-0"
               style={{
@@ -118,37 +115,35 @@ export default function EducationPage() {
         </div>
       </div>
 
-      {/* Next button pinned to bottom */}
-      <div className="pb-6 sm:pb-8 pt-4 flex justify-center shrink-0">
-        {selectedEducation ? (
-          <button
-            onClick={handleNext}
-            className="transition-all hover:scale-105 active:scale-95 cursor-pointer"
-            aria-label="Next"
-          >
-            <Image
-              src="/icons/buttons/selectYourEducationNext.svg"
-              alt="Next"
-              width={82}
-              height={84}
-              priority
-            />
-          </button>
-        ) : (
-          <button
-            disabled
-            className="opacity-50 cursor-not-allowed"
-            aria-label="Next"
-          >
-            <Image
-              src="/icons/buttons/selectYourEducationNext.svg"
-              alt="Next"
-              width={82}
-              height={84}
-              priority
-            />
-          </button>
-        )}
+      {/* Next button */}
+      <div
+        className="
+          mt-auto
+          pt-2
+          pb-[calc(env(safe-area-inset-bottom)+1.25rem)]
+          flex
+          justify-center
+          shrink-0
+        "
+      >
+        <button
+          onClick={handleNext}
+          disabled={!selectedEducation}
+          className={`transition-all ${
+            selectedEducation
+              ? "hover:scale-105 active:scale-95 cursor-pointer"
+              : "opacity-50 cursor-not-allowed"
+          }`}
+          aria-label="Next"
+        >
+          <Image
+            src="/icons/buttons/selectYourEducationNext.svg"
+            alt="Next"
+            width={82}
+            height={84}
+            priority
+          />
+        </button>
       </div>
     </div>
   );
